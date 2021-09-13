@@ -3,7 +3,8 @@
         <p class="float-end mb-1">
             <a href="#">Back to top</a>
         </p>
-        <p class="mb-1">Album example is © Bootstrap, but please download and customize it for yourself!</p>
-        <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="/docs/5.0/getting-started/introduction/">getting started guide</a>.</p>
+        <p class="mb-4"><a href="#"><i class="fab fa-github"></i> Lien Github du site</a> </p>
+        <p class="mb-4"><a href="https://armelle.mystagiaire.fr/"> <img src="./images/favicon-32x32.png" alt="icon-cv"> Lien CV</a></p>
+        <p>Technos utilisées: PHP POO MVC</p>
     </div>
 </footer>
