@@ -23,108 +23,44 @@ session_start();
 </head>
 
 <body>
-    <?php
-    if (!empty($_GET)) {
-        switch ($_GET['action']) {
-            case "admin":
-                $controller = new \Application\Controller\Backend\IndexController();
-                $controller->run();
-                break;
-            case 'product':
-                $controller = new \Application\Controller\Frontend\Product\ProductController();
-                $controller->run();
-                break;
-            case 'customer/register':
-                $controller = new \Application\Controller\Frontend\Customer\Account\RegisterController();
-                $controller->run();
-                break;
-            case 'customer/registerPost':
-                $controller = new \Application\Controller\Frontend\Customer\Account\RegisterPost();
-                $controller->run();
-                break;
-            case 'customer/login':
-                $controller = new \Application\Controller\Frontend\Customer\Account\LoginController();
-                $controller->run();
-                break;
-            case 'customer/loginPost':
-                $controller = new \Application\Controller\Frontend\Customer\Account\LoginPost();
-                $controller->run();
-                break;
-            case 'customer/edit':
-                $controller = new \Application\Controller\Frontend\Customer\Account\Edit();
-                $controller->run();
-                break;
-            case 'customer/editPost':
-                $controller = new Application\Controller\Frontend\Customer\Account\EditPost();
-                $controller->run();
-                break;
-            case 'customer/logout':
-                $controller = new Application\Controller\Frontend\Customer\Account\Logout();
-                $controller->run();
-                break;
-            case 'customer/account':
-                $controller = new Application\Controller\Frontend\Customer\Account\Index();
-                $controller->run();
-                break;
-            case 'admin':
-                $controller = new \Application\Controller\Backend\IndexController();
-                $controller->run();
-                break;
-            case 'admin/customer':
-                $controller = new \Application\Controller\Backend\Customer\Customers();
-                $controller->run();
-                break;
-            case 'admin/customer/create':
-                $controller = new \Application\Controller\Backend\Customer\Create();
-                $controller->run();
-                break;
-            case 'admin/customer/createPost':
-                $controller = new \Application\Controller\Backend\Customer\CreatePost();
-                $controller->run();
-                break;
-            case 'admin/customer/edit':
-                $controller = new \Application\Controller\Backend\Customer\Edit();
-                $controller->run();
-                break;
-            case 'admin/customer/editPost':
-                $controller = new \Application\Controller\Backend\Customer\EditPost();
-                $controller->run();
-                break;
-            case 'admin/customer/delete':
-                $controller = new \Application\Controller\Backend\Customer\Delete();
-                $controller->run();
-                break;
-            case 'admin/products':
-                $controller = new \Application\Controller\Backend\Product\Products();
-                $controller->run();
-                break;
-            case 'admin/products/create':
-                $controller = new \Application\Controller\Backend\Product\Create();
-                $controller->run();
-                break;
-            case 'admin/products/createPost':
-                $controller = new \Application\Controller\Backend\Product\CreatePost();
-                $controller->run();
-                break;
-            case 'admin/products/edit':
-                $controller = new \Application\Controller\Backend\Product\Edit();
-                $controller->run();
-                break;
-            case 'admin/products/editPost':
-                $controller = new \Application\Controller\Backend\Product\EditPost();
-                $controller->run();
-                break;
-            case 'admin/products/delete':
-                $controller = new \Application\Controller\Backend\Product\Delete();
-                $controller->run();
-                break;
-            default:
-                echo "La page demandée n'exites pas";
-        }
+   <?php
+$routing = [
+    'product/productList' => \Application\Controller\Product\ProductListController::class,
+    'customer/login' => \Application\Controller\Customer\Account\Login::class,
+    'customer/loginPost' => \Application\Controller\Customer\Account\LoginPost::class,
+    'customer/register' => \Application\Controller\Customer\Account\Register::class,
+    'customer/registerPost' => \Application\Controller\Customer\Account\RegisterPost::class,
+    'customer/edit' => \Application\Controller\Customer\Account\Edit::class,
+    'customer/editPost' => \Application\Controller\Customer\Account\EditPost::class,
+    'customer/logout' => \Application\Controller\Customer\Account\Logout::class,
+    'customer/account' => \Application\Controller\Customer\Account\Index::class,
+    'admin' => \Application\Controller\Admin\Index::class,
+    'admin/customer' => \Application\Controller\Admin\Customer\Customers::class,
+    'admin/customer/create' => \Application\Controller\Admin\Customer\Create::class,
+    'admin/customer/createPost' => \Application\Controller\Admin\Customer\CreatePost::class,
+    'admin/customer/edit' => \Application\Controller\Admin\Customer\Edit::class,
+    'admin/customer/editPost' => \Application\Controller\Admin\Customer\EditPost::class,
+    'admin/customer/delete' => \Application\Controller\Admin\Customer\Delete::class,
+    'admin/products' => \Application\Controller\Admin\Product\Products::class,
+    'admin/products/create' => \Application\Controller\Admin\Product\Create::class,
+    'admin/products/createPost' => \Application\Controller\Admin\Product\CreatePost::class,
+    'admin/products/edit' => \Application\Controller\Admin\Product\Edit::class,
+    'admin/products/editPost' => \Application\Controller\Admin\Product\EditPost::class,
+    'admin/products/delete' => \Application\Controller\Admin\Product\Delete::class
+];
+
+if (isset($_GET['action'])) {
+    if (isset($routing[$_GET['action']])) {
+        /** @var \Application\Controller\AbstractFrontendController $controller */
+        $controller = new $routing[$_GET['action']]();
+        $controller->run();
     } else {
-        $indexController = new \Application\Controller\Frontend\IndexController();
-        $indexController->run();
+        echo "page introuvable";
     }
+} else {
+    $controller = new \Application\Controller\IndexController();
+    $controller->run();
+}
     ?>
 
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
